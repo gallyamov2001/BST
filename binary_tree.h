@@ -8,7 +8,8 @@ typedef enum {
     ST_ERR_SUCCESS = 0,
     ST_ERR_INVARG,
     ST_ERR_EMPTY,
-    ST_ERR_OOM
+    ST_ERR_OOM,
+    ST_ERR_EMALLOC
 } ST_ERR;
 
 struct Node{
@@ -29,4 +30,6 @@ struct Node* max(struct Node* tree, ST_ERR *err);
 
 struct Node* insert(struct Node* tree, Data k, ST_ERR *err);
 
-struct Node* delete(struct Node* tree, Data k, ST_ERR *err);
+struct Node* node_remove(struct Node* tree, Data k, ST_ERR *err);
+
+void tree_del(struct Node* tree, ST_ERR *err);
