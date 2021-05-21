@@ -362,6 +362,8 @@ int main(){
         fprintf(stdout, "Test_35\t->\tPASSED\n");
     }
     
+    tree_del(tree_d);
+    
 
     return 0;    
 }
