@@ -6,7 +6,7 @@ int main(){
     struct Node* tree = NULL; //empty tree
     struct Node* tree_n = NULL;
     struct Node* tree_d = NULL; //draft tree
-    int nums[14] = {17, 100, 9, 23, 55, 17, 24, 34, 11, 99, 54, 24, 100, 9};
+    int nums[14] = {17, 101, 9, 23, 55, 17, 24, 34, 11, 99, 54, 24, 100, 9};
     for (int i = 0; i < 14; i++){
         tree_n = tree_add(tree_n, nums[i], &err);
     }
@@ -152,7 +152,8 @@ int main(){
         fprintf(stdout, "Test_14\t->\tPASSED\n");
     }
     
-    
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_d = node_remove(tree_n, 99, &err); //15
     if(err != ST_ERR_SUCCESS){
          fprintf(stdout, "Test_15\t->\tFAILED\n");
@@ -161,7 +162,8 @@ int main(){
         fprintf(stdout, "Test_15\t->\tPASSED\n");
     }
     
-    
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_d = node_remove(tree_n, 24, &err); //16
     if(err != ST_ERR_SUCCESS){
          fprintf(stdout, "Test_16\t->\tFAILED\n");
@@ -170,16 +172,18 @@ int main(){
         fprintf(stdout, "Test_16\t->\tPASSED\n");
     }
     
-    
-    tree_d = node_remove(tree_n, 55, &err); //15
+    tree_print(tree_n, &err);
+    printf("\n");
+    tree_d = node_remove(tree_n, 55, &err); //16(2)
     if(err != ST_ERR_SUCCESS){
-         fprintf(stdout, "Test_16\t->\tFAILED\n");
+         fprintf(stdout, "Test_16(2)\t->\tFAILED\n");
     }
     else{
-        fprintf(stdout, "Test_16\t->\tPASSED\n");
+        fprintf(stdout, "Test_16(2)\t->\tPASSED\n");
     }
     
-    
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_d = node_remove(tree_n, 23, &err); //17
     if(err != ST_ERR_SUCCESS){
          fprintf(stdout, "Test_17\t->\tFAILED\n");
@@ -189,15 +193,29 @@ int main(){
     }
     
     
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_d = node_remove(tree_n, 100, &err); //18
     if(err != ST_ERR_SUCCESS){
-         fprintf(stdout, "Test_18\t->\tFAILED\n");
+         fprintf(stdout, "Test_18(1)\t->\tFAILED\n");
     }
     else{
         fprintf(stdout, "Test_18\t->\tPASSED\n");
     }
     
+    tree_print(tree_n, &err);
+    printf("\n");
+    tree_d = node_remove(tree_n, 101, &err); //18_2
+    if(err != ST_ERR_SUCCESS){
+         fprintf(stdout, "Test_18(2)\t->\tFAILED\n");
+    }
+    else{
+        fprintf(stdout, "Test_18(2)\t->\tPASSED\n");
+    }
     
+    
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_n = insert(tree_n, 100, &err); //19
     if(err != ST_ERR_SUCCESS){
          fprintf(stdout, "Test_19\t->\tFAILED\n");
@@ -207,6 +225,19 @@ int main(){
     }
     
     
+    tree_print(tree_n, &err);
+    printf("\n");
+    tree_n = insert(tree_n, 101, &err); //19(2)
+    if(err != ST_ERR_SUCCESS){
+         fprintf(stdout, "Test_19(2)\t->\tFAILED\n");
+    }
+    else{
+        fprintf(stdout, "Test_19(2)\t->\tPASSED\n");
+    }
+    
+    
+    tree_print(tree_n, &err);
+    printf("\n");
     tree_n = insert(tree_n, 23, &err); //20
     if(err != ST_ERR_SUCCESS){
          fprintf(stdout, "Test_20\t->\tFAILED\n");
@@ -362,7 +393,7 @@ int main(){
         fprintf(stdout, "Test_35\t->\tPASSED\n");
     }
     
-    tree_del(tree_d);
+    tree_del(tree_d, &err);
     
 
     return 0;    

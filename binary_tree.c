@@ -3,10 +3,10 @@
 
 void tree_print(struct Node* tree, ST_ERR *err){
     if (tree == NULL){
-        fprintf(stderr, "Tree is empty\n");        
+        fprintf(stderr, "Tree is empty\n");
         if(err != NULL){
-            *err = ST_ERR_EMPTY; 
-        }    
+            *err = ST_ERR_EMPTY;
+        }
         return;
     }
     if(tree->left != NULL)
@@ -24,7 +24,7 @@ struct Node* tree_add(struct Node* tree, Data d, ST_ERR *err){
         if (new_node == NULL) {
             fprintf (stderr, "Not enough memory\n");
             if (err != NULL)
-                *err = ST_ERR_EMALLOC; 
+                *err = ST_ERR_EMALLOC;
             return NULL;
         }
         new_node->data = d;
@@ -102,7 +102,7 @@ struct Node* min(struct Node* tree, ST_ERR *err){
     return min(tree->left, err);
 }
 
-struct Node* max(struct Node* tree, ST_ERR *err){ 
+struct Node* max(struct Node* tree, ST_ERR *err){
     if (tree == NULL){
         fprintf(stderr, "Tree is empty\n");
         if (err != NULL){
@@ -110,10 +110,10 @@ struct Node* max(struct Node* tree, ST_ERR *err){
         }
         return tree;
     }
-    if (tree->right == NULL)  
+    if (tree->right == NULL)
         return tree;
     *err = ST_ERR_SUCCESS;
-    return max(tree->right, err); 
+    return max(tree->right, err);
 }
 
 struct Node* insert(struct Node* tree, Data k, ST_ERR *err){
@@ -124,7 +124,7 @@ struct Node* insert(struct Node* tree, Data k, ST_ERR *err){
     else if(k >= tree->data)
         tree->right = insert(tree->right, k, err);
     *err = ST_ERR_SUCCESS;
-    return tree; 
+    return tree;
 }
 
 struct Node* node_remove(struct Node* tree, Data k, ST_ERR *err){
@@ -132,7 +132,7 @@ struct Node* node_remove(struct Node* tree, Data k, ST_ERR *err){
         fprintf(stderr, "Tree is empty\n");
         if(err != NULL){
             *err = ST_ERR_EMPTY;
-        }       
+        }
         return tree;
     }
     else if(k < tree->data && tree->left != NULL)
@@ -140,16 +140,15 @@ struct Node* node_remove(struct Node* tree, Data k, ST_ERR *err){
     else if(k > tree->data && tree->right != NULL)
         tree->right = node_remove(tree->right, k, err);
     //далее ситуация, когда мы нашли удаляемый узел
-    else if(tree->data == k && tree->left != NULL && tree->right != NULL){
-        tree->data = min(tree->right, err)->data;
-        tree->right = node_remove(tree->right, tree->data, err);  
-    }
     else if(tree->data == k){
-        if(tree->left != NULL)
-            tree = tree->left;
-        else if(tree->right != NULL)
-            tree = tree->right;
-        //если выше все неверно, то значит искомый узел - лист
+        if(tree->right != NULL){
+            tree->data = min(tree->right, err)->data;
+            tree->right = node_remove(tree->right, tree->data, err);
+        }
+        else if(tree->left != NULL){
+            tree->data = max(tree->left, err)->data;
+            tree->left = node_remove(tree->left, tree->data, err);
+        }
         else{
             *err = ST_ERR_SUCCESS;
             free(tree);
